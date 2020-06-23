@@ -1,0 +1,15 @@
+﻿<Window x:Class="List_Of_Employees.DepEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:List_Of_Employees"
+        mc:Ignorable="d"
+        Title="Департамент" Height="112.373" Width="383.162" Loaded="Window_Loaded" ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="DepartmentTextBox" HorizontalAlignment="Left" Height="23" Margin="108,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="259"/>
+        <Label Content="Департамент:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Сохранить" Click="saveDepartment" HorizontalAlignment="Left" Margin="78,53,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Отмена" Click="cancelDepartment" HorizontalAlignment="Left" Margin="232,53,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
