@@ -1,0 +1,42 @@
+﻿<Window x:Class="List_Of_Employees.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:List_Of_Employees"
+        mc:Ignorable="d"
+         Title="Сотрудники" Loaded="Window_Loaded" Width="800" ResizeMode="NoResize">
+    <Grid HorizontalAlignment="Left" Width="790">
+        <Button x:Name="DeleteEmployee" FontSize="10" Content="➖" Background="Gray" Foreground="#EA1313" Click="deleteemployee" Height="20" Width="20" Margin="351,60,419,426" />
+        <Button x:Name="AddEmployee" FontSize="10" Content="➕" Background="Gray" Foreground="#00AB44" Click="addemployee"  Height="20" Width="20" Margin="351,10,419,476"/>
+        <Button x:Name="UpdateEmployee" Click="changeemployee" FontSize="10" Content="📝" Background="Gray" Foreground="#FFCF40" Height="20" Width="20" Margin="351,35,419,451"/>
+        <DataGrid x:Name="employeeDataGrid" 
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"
+            ItemsSource="{Binding}" 
+            Margin="10,10,444,10" 
+            HorizontalAlignment="Center" IsReadOnly="True" Width="336" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="LastNameColumn" Binding="{Binding LastName}" Header="Фамилия" Width="*"/>
+                <DataGridTextColumn x:Name="FirstNameColumn" Binding="{Binding FirstName}" Header="Имя" Width="*"/>
+                <DataGridTextColumn x:Name="DepartmentIdColumn" Binding="{Binding DepartmentId}" Header="Id Департамента" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="departmentDataGrid" 
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"
+            ItemsSource="{Binding}" 
+            Margin="419,10,35,10" 
+            HorizontalAlignment="Center" IsReadOnly="True" Width="336" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="IdDepartmentColumn" Binding="{Binding Did}" Header="Id" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="DepartmentColumn" Binding="{Binding Department}" Header="Департамент" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="DeleteDepartment" FontSize="10" Content="➖" Background="Gray" Foreground="#EA1313" Click="deletedepartment" Height="20" Width="20" Margin="760,60,10,426" />
+        <Button x:Name="AddDepartment" FontSize="10" Content="➕" Background="Gray" Foreground="#00AB44" Click="adddepartment"  Height="20" Width="20" Margin="760,10,10,476" RenderTransformOrigin="0.489,1.652"/>
+        <Button x:Name="UpdateDepartment" Click="changedepartment" FontSize="10" Content="📝" Background="Gray" Foreground="#FFCF40" Height="20" Width="20" Margin="760,35,10,451" RenderTransformOrigin="0.46,0.475"/>
+
+    </Grid>
+</Window>
