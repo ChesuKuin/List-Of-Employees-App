@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,7 +16,6 @@ namespace List_Of_Employees
         SqlConnection connection;
         SqlDataAdapter adapter;
         DataTable dt;
-        DataTable dtdep;
         public MainWindow()
         {
             InitializeComponent();
@@ -137,15 +136,16 @@ namespace List_Of_Employees
             #region delete
 
 
-            commanddep = new SqlCommand("DELETE FROM Department WHERE DID = @DID", connection);
-            paramdep = commanddep.Parameters.Add("@DID", SqlDbType.Int, 0, "DID");
+            commanddep = new SqlCommand("DELETE FROM Department WHERE ID = @ID", connection);
+            paramdep = commanddep.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
             // param.SourceVersion = DataRowVersion.Original;
             adapter.DeleteCommand = commanddep;
 
             #endregion
-            dtdep = new DataTable();
-            adapter.Fill(dtdep);
-            departmentDataGrid.DataContext = dtdep.DefaultView;
+
+            dt = new DataTable();
+            adapter.Fill(dt);
+            departmentDataGrid.DataContext = dt.DefaultView;
         }
         private void addemployee(object sender, RoutedEventArgs e)
         {
@@ -188,17 +188,16 @@ namespace List_Of_Employees
         }
 
 
-        private void department(object sender, RoutedEventArgs e)
+        private void adddepartment(object sender, RoutedEventArgs e)
         {
-            DataRow newRow = dtdep.NewRow();
+            DataRow newRow = dt.NewRow();
             DepEdit depEdit = new DepEdit(newRow);
             depEdit.ShowDialog();
 
             if (depEdit.DialogResult.Value)
             {
-                dtdep.Rows.Add(depEdit.resultRow);
-                dtdep.Rows.Add(depEdit.resultRow);
-                adapter.Update(dtdep);
+                dt.Rows.Add(depEdit.resultRow);
+                adapter.Update(dt);
             }
         }
 
@@ -213,7 +212,7 @@ namespace List_Of_Employees
             if (depEdit.DialogResult.HasValue && depEdit.DialogResult.Value)
             {
                 newRow.EndEdit();
-                adapter.Update(dtdep);
+                adapter.Update(dt);
             }
             else
             {
@@ -226,10 +225,9 @@ namespace List_Of_Employees
             DataRowView newRow = (DataRowView)departmentDataGrid.SelectedItem;
 
             newRow.Row.Delete();
-            adapter.Update(dtdep);
+            adapter.Update(dt);
         }
 
 
     }
 }
-
