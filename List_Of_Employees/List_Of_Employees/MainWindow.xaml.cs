@@ -15,7 +15,8 @@ namespace List_Of_Employees
     {
         SqlConnection connection;
         SqlDataAdapter adapter;
-        DataTable dt;
+        DataTable dt; 
+        DataTable dtdep;
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace List_Of_Employees
 
             command.Parameters.Add("@LastName", SqlDbType.NVarChar, -1, "LastName");
             command.Parameters.Add("@FirstName", SqlDbType.NVarChar, -1, "FirstName");
-            command.Parameters.Add("@DepartmentId", SqlDbType.NVarChar, 0, "DepartmentId");
+            command.Parameters.Add("@DepartmentId", SqlDbType.Int, 0, "DepartmentId");
 
             SqlParameter param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
 
@@ -68,7 +69,7 @@ namespace List_Of_Employees
 
             command.Parameters.Add("@LastName", SqlDbType.NVarChar, -1, "LastName");
             command.Parameters.Add("@FirstName", SqlDbType.NVarChar, -1, "FirstName");
-            command.Parameters.Add("@DepartmentId", SqlDbType.NVarChar, 0, "DepartmentId");
+            command.Parameters.Add("@DepartmentId", SqlDbType.Int, 0, "DepartmentId");
 
             param = command.Parameters.Add("@ID", SqlDbType.Int, 0, "ID");
 
@@ -143,9 +144,9 @@ namespace List_Of_Employees
 
             #endregion
 
-            dt = new DataTable();
-            adapter.Fill(dt);
-            departmentDataGrid.DataContext = dt.DefaultView;
+            dtdep = new DataTable();
+            adapter.Fill(dtdep);
+            departmentDataGrid.DataContext = dtdep.DefaultView;
         }
         private void addemployee(object sender, RoutedEventArgs e)
         {
@@ -190,14 +191,14 @@ namespace List_Of_Employees
 
         private void adddepartment(object sender, RoutedEventArgs e)
         {
-            DataRow newRow = dt.NewRow();
+            DataRow newRow = dtdep.NewRow();
             DepEdit depEdit = new DepEdit(newRow);
             depEdit.ShowDialog();
 
             if (depEdit.DialogResult.Value)
             {
-                dt.Rows.Add(depEdit.resultRow);
-                adapter.Update(dt);
+                dtdep.Rows.Add(depEdit.resultRow);
+                adapter.Update(dtdep);
             }
         }
 
@@ -212,7 +213,7 @@ namespace List_Of_Employees
             if (depEdit.DialogResult.HasValue && depEdit.DialogResult.Value)
             {
                 newRow.EndEdit();
-                adapter.Update(dt);
+                adapter.Update(dtdep);
             }
             else
             {
@@ -225,9 +226,10 @@ namespace List_Of_Employees
             DataRowView newRow = (DataRowView)departmentDataGrid.SelectedItem;
 
             newRow.Row.Delete();
-            adapter.Update(dt);
+            adapter.Update(dtdep);
         }
 
 
     }
 }
+
